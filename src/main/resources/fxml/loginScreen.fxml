@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #212121;" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.LoginController">
+   <children>
+      <Label layoutX="150.0" layoutY="37.0" text="Login" textFill="WHITE">
+         <font>
+            <Font name="Tahoma Bold" size="36.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="150.0" layoutY="83.0" prefHeight="6.0" prefWidth="100.0" style="-fx-background-color: #76FF03;" />
+      <JFXTextField fx:id="usernameTxt" focusColor="#02f028" layoutX="107.0" layoutY="142.0" prefHeight="25.0" prefWidth="187.0" promptText="Username">
+         <font>
+            <Font name="Tahoma Bold" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField fx:id="passwordTxt" focusColor="#02f028" layoutX="107.0" layoutY="212.0" prefHeight="25.0" prefWidth="187.0" promptText="Password">
+         <font>
+            <Font name="Tahoma Bold" size="14.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXButton fx:id="loginBtn" layoutX="116.0" layoutY="346.0" onAction="#loginProcedure" prefHeight="46.0" prefWidth="169.0" style="-fx-background-color: #76FF03; -fx-background-radius: 90;" text="Login" textFill="#4d4d4d">
+         <font>
+            <Font name="Tahoma Bold" size="22.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="28.0" fitWidth="30.0" layoutX="67.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/user.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="28.0" fitWidth="30.0" layoutX="67.0" layoutY="212.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/lock.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="registerBtn" layoutX="116.0" layoutY="414.0" onAction="#registerForm" prefHeight="46.0" prefWidth="169.0" style="-fx-background-radius: 90; -fx-background-color: #76FF03;" text="Register" textFill="#4d4d4d">
+         <font>
+            <Font name="Tahoma Bold" size="22.0" />
+         </font>
+      </JFXButton>
+
+
+   </children>
+</AnchorPane>
