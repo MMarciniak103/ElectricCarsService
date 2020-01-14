@@ -27,6 +27,16 @@ public class UserService implements ServiceInterface<UserEntity>{
         return user;
     }
 
+    public UserEntity findByName(String name){
+        UserEntity user = null;
+        try{
+            user = dao.queryForOne("from UserEntity where login = '"+name+"'");
+        }catch (NoResultException ex){
+
+        }
+        return user;
+    }
+
     public UserEntity findUser(String login,String psw){
 
         UserEntity user = null;
