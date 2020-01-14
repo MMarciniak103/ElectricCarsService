@@ -2,3 +2,7 @@
     -fx-prompt-text-fill: #757575;
     -fx-text-inner-color: #757575;
 }
+
+.image{
+    -fx-fill: #37d739;
+}

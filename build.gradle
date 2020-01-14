@@ -25,6 +25,7 @@ dependencies {
 
     compile 'com.jfoenix:jfoenix:9.0.9'
     
+    
 }
 
 javafx {

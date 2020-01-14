@@ -3,20 +3,31 @@ package app.controllers;
 import app.dao.GenericHibernateDao;
 import app.entity.UserEntity;
 import app.service.UserService;
+import app.util.Toast;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+
+import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class LoginController {
 
+    @FXML
+    public AnchorPane loginScreen;
     @FXML
     private ResourceBundle resources;
 
@@ -62,8 +73,7 @@ public class LoginController {
         login.bind(usernameTxt.textProperty());
         password.bind(passwordTxt.textProperty());
 
-        List enti = userService.findAll();
-        enti.forEach(System.out::println);
+
     }
 
     // TODO
@@ -84,6 +94,31 @@ public class LoginController {
     @FXML
     void registerForm(ActionEvent event) {
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registrationForm.fxml"));
+            Parent root = loader.load();
+
+            RegistrationController registrationController = loader.getController();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.showAndWait();
+
+
+            if(registrationController.registrationStatus()){
+                String toastMsg = "Registration Succesfull";
+                int toastMsgTime = 2500;
+                int fadeInTime = 500;
+                int fadeOutTime = 500;
+
+                Stage loginStage = (Stage) loginScreen.getScene().getWindow();
+                Toast.makeText(null,toastMsg,toastMsgTime,fadeInTime,fadeOutTime);
+            }
+
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
     }
 
 }
