@@ -1,10 +1,11 @@
 package app.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity implements Serializable {
 
 
     public enum Role{

@@ -1,7 +1,8 @@
 package app.controllers;
 
-import app.dao.UserDao;
+import app.dao.GenericHibernateDao;
 import app.entity.UserEntity;
+import app.service.UserService;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -34,7 +35,9 @@ public class LoginController {
     @FXML
     private JFXButton registerBtn;
 
-    private UserDao userDao;
+    private GenericHibernateDao hibernateDao;
+
+    private UserService userService;
 
     private StringProperty login;
     private StringProperty password;
@@ -50,17 +53,24 @@ public class LoginController {
         login = new SimpleStringProperty();
         password = new SimpleStringProperty();
 
-        userDao = new UserDao();
+        hibernateDao = new GenericHibernateDao();
+        hibernateDao.setClazz(UserEntity.class);
+
+        userService = new UserService();
+        userService.setDao(hibernateDao);
 
         login.bind(usernameTxt.textProperty());
         password.bind(passwordTxt.textProperty());
 
+        List enti = userService.findAll();
+        enti.forEach(System.out::println);
     }
 
     // TODO
     @FXML
     void loginProcedure(ActionEvent event) {
-        UserEntity user = userDao.findUser(login.get(), password.get());
+        UserEntity user = userService.findUser(login.get(), password.get());
+
         if(user != null){
 
             System.out.println("Login Succesfull");
@@ -73,7 +83,7 @@ public class LoginController {
 
     @FXML
     void registerForm(ActionEvent event) {
-        
+
     }
 
 }
