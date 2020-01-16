@@ -10,6 +10,7 @@ public class UserService implements ServiceInterface<UserEntity>{
 
     GenericHibernateDao<UserEntity> dao;
 
+    @Override
     public void setDao(GenericHibernateDao<UserEntity> daoToSet){
         this.dao = daoToSet;
         this.dao.setClazz(UserEntity.class);
