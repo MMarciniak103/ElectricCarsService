@@ -88,6 +88,8 @@ public class LoginController {
         }
         else{
             System.out.println("Login unsuccesfull "+login.get()+" "+password.get());
+            UserEntity.Role userRole = user.getRole();
+
         }
     }
 
@@ -106,13 +108,14 @@ public class LoginController {
 
 
             if(registrationController.registrationStatus()){
-                String toastMsg = "Registration Succesfull";
-                int toastMsgTime = 2500;
-                int fadeInTime = 500;
-                int fadeOutTime = 500;
-
-                Stage loginStage = (Stage) loginScreen.getScene().getWindow();
-                Toast.makeText(null,toastMsg,toastMsgTime,fadeInTime,fadeOutTime);
+                // TODO
+//                String toastMsg = "Registration Succesfull";
+//                int toastMsgTime = 2500;
+//                int fadeInTime = 500;
+//                int fadeOutTime = 500;
+//
+//                Stage loginStage = (Stage) loginScreen.getScene().getWindow();
+//                Toast.makeText(null,toastMsg,toastMsgTime,fadeInTime,fadeOutTime);
             }
 
 
