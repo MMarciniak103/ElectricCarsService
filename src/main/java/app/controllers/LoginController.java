@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.dao.GenericHibernateDao;
 import app.entity.UserEntity;
+import app.googleMaps.Browser;
 import app.service.UserService;
 import app.util.Toast;
 import com.jfoenix.controls.JFXButton;
@@ -85,10 +86,21 @@ public class LoginController {
 
             System.out.println("Login Succesfull");
             System.out.println(user);
+            UserEntity.Role userRole = user.getRole();
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
         }
         else{
             System.out.println("Login unsuccesfull "+login.get()+" "+password.get());
-            UserEntity.Role userRole = user.getRole();
 
         }
     }
