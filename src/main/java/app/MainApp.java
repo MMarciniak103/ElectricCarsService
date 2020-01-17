@@ -20,6 +20,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("ElectricCarsService");
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 }

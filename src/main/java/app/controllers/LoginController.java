@@ -2,9 +2,7 @@ package app.controllers;
 
 import app.dao.GenericHibernateDao;
 import app.entity.UserEntity;
-import app.googleMaps.Browser;
 import app.service.UserService;
-import app.util.Toast;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -23,7 +21,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 public class LoginController {
 
@@ -91,9 +88,11 @@ public class LoginController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
                 Parent root = loader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.initModality(Modality.APPLICATION_MODAL);
+
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) loginBtn.getScene().getWindow();
+                stage.setScene(scene);
+                stage.setResizable(false);
                 stage.show();
             }catch (IOException ex){
                 ex.printStackTrace();
@@ -115,6 +114,7 @@ public class LoginController {
             RegistrationController registrationController = loader.getController();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.showAndWait();
 
