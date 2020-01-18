@@ -101,6 +101,10 @@ public class RegistrationController {
             pswdIcon.setVisible(true);
             pswdConfirmIcon.setVisible(true);
         }
+        else{
+            pswdIcon.setVisible(false);
+            pswdConfirmIcon.setVisible(false);
+        }
     }
 
 
@@ -116,7 +120,7 @@ public class RegistrationController {
         UserEntity user = userService.findByName(username.get());
         if(user != null){
             usernameIcon.setVisible(false);
-            DialogUtils.invalidUsernameDialog();
+            DialogUtils.popupWindow("Username Is Taken",2);
         }
         else{
             usernameIcon.setVisible(true);
@@ -137,8 +141,10 @@ public class RegistrationController {
 
             }
             else{
-                DialogUtils.differentPasswordsDialog();
+//                DialogUtils.differentPasswordsDialog();
+                DialogUtils.popupWindow("Incorrect Password",2);
             }
+
         }
 
     }

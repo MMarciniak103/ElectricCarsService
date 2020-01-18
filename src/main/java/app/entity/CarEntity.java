@@ -3,15 +3,17 @@ package app.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "vehicles")
 public class CarEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name = "name")
     private String name;
@@ -47,14 +49,17 @@ public class CarEntity implements Serializable {
     private String damageDescription;
 
 
+
     public CarEntity() {
     }
 
-    public int getId() {
+
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -145,6 +150,7 @@ public class CarEntity implements Serializable {
     public void setDamageDescription(String damageDescription) {
         this.damageDescription = damageDescription;
     }
+
 
     @Override
     public String toString() {

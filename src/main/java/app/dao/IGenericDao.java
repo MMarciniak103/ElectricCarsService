@@ -10,7 +10,7 @@ public interface IGenericDao<T extends Serializable> {
 
     T create(T entity);
 
-    T update(T entity);
+    void update(T entity);
 
     void delete(T entity);
 

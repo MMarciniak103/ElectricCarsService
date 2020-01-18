@@ -39,8 +39,8 @@ public class CarService implements ServiceInterface<CarEntity> {
     }
 
     @Override
-    public CarEntity update(CarEntity entity) {
-        return dao.update(entity);
+    public void update(CarEntity entity) {
+        dao.update(entity);
     }
 
     @Override
