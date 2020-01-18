@@ -6,12 +6,17 @@
     <session-factory>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/vozilla?useTimezone=true&amp;serverTimezone=CET</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">Goblin103</property>
+        <property name="hibernate.connection.password">PASSWORD</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
+        <!--<mapping resource="CarEntity.hbm.xml"/>-->
+        <!--<mapping resource="UserEntity.hbm.xml"/>-->
+        <!--<mapping resource="TransactionEntity.hbm.xml"/>-->
+
         <mapping class="app.entity.UserEntity"/>
         <mapping class="app.entity.CarEntity"/>
+        <mapping class="app.entity.TransactionEntity"/>
     </session-factory>
 </hibernate-configuration>

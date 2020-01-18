@@ -1,0 +1,35 @@
+.dialog-pane{
+    -fx-background-color:#212121;
+    -fx-text-fill:#757575;
+}
+.dialog-pane .content{
+    -fx-background-color:#212121;
+    -fx-text-fill: #757575;
+}
+
+.dialog-pane > .content.label{
+    -fx-background-color:#212121;
+    -fx-text-fill: #757575;
+}
+
+.dialog-pane .header-panel{
+    -fx-background-color:#212121;
+    -fx-text-fill: #757575;
+
+}
+
+.dialog-pane *.header-panel *.label{
+    -fx-text-fill: #757575;
+    -fx-fill: #757575;
+}
+
+.dialog-pane .button{
+    -fx-background-color:#37d739;
+    -fx-background-radius: 90;
+    -fx-text-fill: #757575;
+    -fx-fill: #757575;
+}
+.dialog-pane .button:hover{
+    -fx-background-color: #757575;
+    -fx-text-fill: #37d739;
+}

@@ -3,6 +3,7 @@ package app.controllers;
 import app.dao.GenericHibernateDao;
 import app.entity.UserEntity;
 import app.service.UserService;
+import app.util.DialogUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -63,7 +64,6 @@ public class LoginController {
         password = new SimpleStringProperty();
 
         hibernateDao = new GenericHibernateDao();
-        hibernateDao.setClazz(UserEntity.class);
 
         userService = new UserService();
         userService.setDao(hibernateDao);
@@ -74,20 +74,18 @@ public class LoginController {
 
     }
 
-    // TODO
     @FXML
     void loginProcedure(ActionEvent event) {
-        UserEntity user = userService.findUser(login.get(), password.get());
+        final UserEntity user = userService.findUser(login.get(), password.get());
 
         if(user != null){
-
-            System.out.println("Login Succesfull");
-            System.out.println(user);
-            UserEntity.Role userRole = user.getRole();
 
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
                 Parent root = loader.load();
+
+                DashboardController dashboardController = loader.getController();
+                dashboardController.passUser(user);
 
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) loginBtn.getScene().getWindow();
@@ -99,7 +97,8 @@ public class LoginController {
             }
         }
         else{
-            System.out.println("Login unsuccesfull "+login.get()+" "+password.get());
+
+            DialogUtils.popupWindow("Login Unsuccessful",2);
 
         }
     }
@@ -120,14 +119,7 @@ public class LoginController {
 
 
             if(registrationController.registrationStatus()){
-                // TODO
-//                String toastMsg = "Registration Succesfull";
-//                int toastMsgTime = 2500;
-//                int fadeInTime = 500;
-//                int fadeOutTime = 500;
-//
-//                Stage loginStage = (Stage) loginScreen.getScene().getWindow();
-//                Toast.makeText(null,toastMsg,toastMsgTime,fadeInTime,fadeOutTime);
+               DialogUtils.popupWindow("Registration Successful",3);
             }
 
 

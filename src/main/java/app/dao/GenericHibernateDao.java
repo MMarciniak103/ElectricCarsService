@@ -33,8 +33,8 @@ public class GenericHibernateDao<T extends Serializable> extends AbstractHiberna
     }
 
     @Override
-    public T update(T entity) {
-        return super.update(entity);
+    public void update(T entity) {
+        super.update(entity);
     }
 
     @Override
@@ -50,6 +50,11 @@ public class GenericHibernateDao<T extends Serializable> extends AbstractHiberna
     @Override
     public T queryForOne(String query) {
         return super.queryForOne(query);
+    }
+
+    @Override
+    public Long queryForID(String query) {
+        return super.queryForID(query);
     }
 
     @Override

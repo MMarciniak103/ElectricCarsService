@@ -3,6 +3,7 @@ package app.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Table(name = "users")
 public class UserEntity implements Serializable {
@@ -12,7 +13,7 @@ public class UserEntity implements Serializable {
         ADMIN,NORMAL
     }
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
 
@@ -26,8 +27,10 @@ public class UserEntity implements Serializable {
     @Column(name = "role")
     private Role role;
 
-    public UserEntity() {
-    }
+
+
+
+    public UserEntity() {}
 
     @Override
     public String toString() {
@@ -70,4 +73,6 @@ public class UserEntity implements Serializable {
     public void setRole(Role role) {
         this.role = role;
     }
+
+
 }

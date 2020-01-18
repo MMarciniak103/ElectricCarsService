@@ -6,6 +6,11 @@ import org.hibernate.Session;
 import java.util.List;
 import java.io.Serializable;
 
+/**
+ * Abstract class that implements Data Access Object. It uses generalized parameters so it can be easily reproduced and implemented.
+ * It is the lowest layer of application architecture that is used to interact with database.
+ * @param <T> Class of Dao's entity.
+ */
 public abstract class AbstractHibernateDao<T extends Serializable> {
 
     private Class<T> clazz;
@@ -14,6 +19,11 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
         this.clazz = clazzToSet;
     }
 
+    /**
+     * Creates connection with database and finds entity by given id.
+     * @param id id of entity
+     * @return Entity object.
+     */
     public T findOne(long id){
         T entity;
         try(Session session =HibernateConfig.getSessionFactory().openSession()) {
@@ -22,6 +32,10 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
         return entity;
     }
 
+    /**
+     * Creates connection with database and query for all rows from given table.
+     * @return List of entities.
+     */
     public List findAll(){
         List entities;
         try(Session session = HibernateConfig.getSessionFactory().openSession()) {
@@ -30,35 +44,71 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
         return  entities; 
     }
 
+    /**
+     * Creates connection with database and inserts new Entity into table.
+     * @param entity Reference to new entity.
+     * @return created Entity.
+     */
     public T create(T entity){
         try(Session session =HibernateConfig.getSessionFactory().openSession()) {
+            session.beginTransaction();
             session.saveOrUpdate(entity);
+            session.getTransaction().commit();
         }
         return entity;
     }
 
-    public T update(T entity){
-        T result;
+    /**
+     * Creates connection with database and updates given record.
+     * @param entity record that we want to update.
+     * @return updated entity.
+     */
+    public void update(T entity){
         try(Session session = HibernateConfig.getSessionFactory().openSession()) {
-            result = (T) session.merge(entity);
+            session.beginTransaction();
+            session.saveOrUpdate(entity);
+            session.getTransaction().commit();
         }
-        return result;
     }
 
+    /**
+     * Creates connection with database and deletes given record.
+     * @param entity record that we want to delete.
+     */
     public void delete(T entity){
         try(Session session = HibernateConfig.getSessionFactory().openSession()) {
+            session.beginTransaction();
             session.delete(entity);
-        }    }
+            session.getTransaction().commit();
+        }
+    }
 
-    public void deleteById(long entityId){
+    /**
+     * It invokes delete function with Id of record that we want to delete.
+      * @param entityId record's id.
+     */
+    public void deleteById(long entityId){ ;
         T entity = findOne(entityId);
         delete(entity);
     }
 
+    /**
+     * It creates connection with database and creates query that returns single result.
+     * @param query Query that we want to run.
+     * @return entity that is result of given query.
+     */
     public T queryForOne(String query){
         T result;
         try(Session session = HibernateConfig.getSessionFactory().openSession()) {
                 result = (T) session.createQuery(query).getSingleResult();
+        }
+        return result;
+    }
+
+    public Long queryForID(String query){
+        Long result;
+        try(Session session = HibernateConfig.getSessionFactory().openSession()){
+            result = (Long) session.createQuery(query).getSingleResult();
         }
         return result;
     }
