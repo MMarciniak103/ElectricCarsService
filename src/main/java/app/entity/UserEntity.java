@@ -13,7 +13,7 @@ public class UserEntity implements Serializable {
         ADMIN,NORMAL
     }
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 

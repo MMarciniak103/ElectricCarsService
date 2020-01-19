@@ -1,5 +1,6 @@
 package app.googleMaps;
 
+import app.entity.CarEntity;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.Marker;
@@ -73,6 +74,14 @@ public class MyMarker extends Marker {
                 ", myTitle='" + myTitle + '\'' +
                 ", infoWindow=" + infoWindow +
                 '}';
+    }
+
+
+    public static String createWindowContent(CarEntity car){
+        return "<h2>Address: "+car.getAddress()+"</h2>"
+                +"Name: "+car.getName()
+                +"<br>Battery Lvl: "+car.getBatteryLvlPct()
+                +"<br>Status: "+car.getStatus();
     }
 }
 

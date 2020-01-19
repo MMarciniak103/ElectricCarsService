@@ -11,9 +11,6 @@
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
-        <!--<mapping resource="CarEntity.hbm.xml"/>-->
-        <!--<mapping resource="UserEntity.hbm.xml"/>-->
-        <!--<mapping resource="TransactionEntity.hbm.xml"/>-->
 
         <mapping class="app.entity.UserEntity"/>
         <mapping class="app.entity.CarEntity"/>
