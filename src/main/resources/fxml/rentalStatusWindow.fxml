@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="rentalStatusWindow" prefHeight="573.0" prefWidth="423.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.RentalStatusController">
+   <children>
+      <Label alignment="CENTER" layoutX="55.0" layoutY="36.0" prefHeight="47.0" prefWidth="313.0" text="Your Rental Status" textFill="WHITE">
+         <font>
+            <Font name="Tahoma Bold" size="26.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="15.0" layoutY="80.0" prefHeight="7.0" prefWidth="393.0" style="-fx-background-color: #76FF03; -fx-background-radius: 60;" />
+      <Label fx:id="nameLabel" alignment="CENTER" layoutX="40.0" layoutY="143.0" prefHeight="17.0" prefWidth="343.0" textFill="#7d7d7d">
+         <font>
+            <Font name="Tahoma Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="latitudeLabel" alignment="CENTER" layoutX="40.0" layoutY="181.0" prefHeight="17.0" prefWidth="343.0" textFill="#7d7d7d">
+         <font>
+            <Font name="Tahoma Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="longitudeLabel" alignment="CENTER" layoutX="40.0" layoutY="218.0" prefHeight="17.0" prefWidth="343.0" textFill="#7d7d7d">
+         <font>
+            <Font name="Tahoma Bold" size="15.0" />
+   </font>
+</Label>
+      <Label fx:id="addressLabel" alignment="CENTER" layoutX="40.0" layoutY="259.0" prefHeight="40.0" prefWidth="343.0" textFill="#7d7d7d">
+         <font>
+            <Font name="Tahoma Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="insuranceLabel" alignment="CENTER" layoutX="40.0" layoutY="317.0" prefHeight="40.0" prefWidth="343.0" textFill="#7d7d7d">
+         <font>
+            <Font name="Tahoma Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="rangeKmLabel" alignment="CENTER" layoutX="40.0" layoutY="372.0" prefHeight="40.0" prefWidth="343.0" textFill="#7d7d7d">
+         <font>
+            <Font name="Tahoma Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="165.0" layoutY="526.0" prefHeight="31.0" prefWidth="94.0" text="Close" textFill="#7d7d7d" onAction="#close">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/logout.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

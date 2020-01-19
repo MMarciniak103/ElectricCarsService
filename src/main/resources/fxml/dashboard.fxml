@@ -72,5 +72,17 @@
       <GoogleMapView fx:id="mapViewer" layoutX="8.0" layoutY="54.0" prefHeight="380.0" prefWidth="1085.0" />
       <AnchorPane layoutX="8.0" layoutY="434.0" prefHeight="7.0" prefWidth="1085.0" style="-fx-background-color: #76FF03;" />
       <AnchorPane layoutX="8.0" layoutY="51.0" prefHeight="7.0" prefWidth="1085.0" style="-fx-background-color: #76FF03;" />
+      <JFXButton fx:id="rentalStatusBtn" layoutX="854.0" layoutY="608.0" onAction="#showRentalStatus" prefHeight="71.0" prefWidth="217.0" style="-fx-background-color: #76FF03; -fx-background-radius: 90;" text="Rental Status" textFill="#757575">
+         <font>
+            <Font name="Tahoma Bold" size="19.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="37.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/rental_status.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>
