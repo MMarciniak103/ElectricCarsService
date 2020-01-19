@@ -13,6 +13,7 @@ import app.util.DialogUtils;
 import com.jfoenix.controls.JFXButton;
 
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -37,11 +38,16 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 
 
@@ -66,6 +72,8 @@ public class DashboardController implements MapComponentInitializedListener {
     @FXML
     private GoogleMapView mapViewer;
 
+    @FXML
+    public JFXButton rentalStatusBtn;
 
     @FXML
     private JFXButton adminBtn;
@@ -392,4 +400,38 @@ public class DashboardController implements MapComponentInitializedListener {
         this.loggedUser = user;
     }
 
+    @FXML
+    public void showRentalStatus(ActionEvent actionEvent) {
+        transactionService.setDao(dao);
+        TransactionEntity transaction = transactionService.findByUser(loggedUser.getId());
+
+        if(transaction !=null){
+
+            try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/rentalStatusWindow.fxml"));
+            Parent root = loader.load();
+
+            carService.setDao(dao);
+            CarEntity carEntity = carService.findOne(transaction.getCarId());
+
+            RentalStatusController rentalStatusController = loader.getController();
+            rentalStatusController.passCar(carEntity);
+            setNewStage(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            DialogUtils.popupWindow("Unavailable ",2);
+        }
+    }
+
+    static void setNewStage(Parent root) {
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
+    }
 }

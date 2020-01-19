@@ -111,11 +111,7 @@ public class LoginController {
             Parent root = loader.load();
 
             RegistrationController registrationController = loader.getController();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.showAndWait();
+            DashboardController.setNewStage(root);
 
 
             if(registrationController.registrationStatus()){
