@@ -39,13 +39,16 @@ public class UserService implements ServiceInterface<UserEntity>{
         return user;
     }
 
+
+
     public UserEntity findUser(String login,String psw){
 
         UserEntity user = null;
+        try {
 
-        try{
             user = dao.queryForOne("from UserEntity where login = '" + login + "' and password = SHA1('" + psw + "')");
         }catch (NoResultException ex){
+
         }
         return user;
     }

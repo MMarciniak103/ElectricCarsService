@@ -12,14 +12,16 @@ import app.util.CloseApplication;
 import app.util.DialogUtils;
 import com.jfoenix.controls.JFXButton;
 
-import java.io.File;
-import java.io.IOException;
+
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 import com.lynden.gmapsfx.GoogleMapView;
@@ -29,23 +31,19 @@ import com.lynden.gmapsfx.javascript.object.*;
 import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
 import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
-import com.lynden.gmapsfx.util.MarkerImageFactory;
-import javafx.animation.PauseTransition;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 import netscape.javascript.JSObject;
+
 
 public class DashboardController implements MapComponentInitializedListener {
 
@@ -179,13 +177,7 @@ public class DashboardController implements MapComponentInitializedListener {
 
                 transactionService.create(transactionEntity);
 
-//            Marker marker = findMarkerByName(String.valueOf(chosenCar.getId()));
-//            if(marker != null){
-//                String image = MarkerImageFactory.createMarkerImage("file:"+RED_MARKER,"png");
-//                image.replace("(","");
-//                image.replace("(","");
-//                ((MyMarker)marker).getMarkerOptions().icon(image);
-//            }
+
                 DialogUtils.popupWindow("Car Rented Successfully", 2);
 
             }
@@ -226,51 +218,57 @@ public class DashboardController implements MapComponentInitializedListener {
 
             car.setLongitude(new_longitde);
             car.setLatitude(new_latitude);
-            int battery = (int) (car.getBatteryLvlPct()-(travelDistance*0.01));
-            if(battery < 0)
-                battery = 0;
+            final int battery =((car.getBatteryLvlPct()-(travelDistance*0.01))>=0)? (int) (car.getBatteryLvlPct()-(travelDistance*0.01)) : 0;
+
             car.setBatteryLvlPct(battery);
             car.setRangeKM((int) (car.getRangeKM()+travelDistance));
+
             car.setStatus("AVAILABLE");
 
 
             CarView carView = carTable.getItems().get((int) car.getId()-1);
 
+
+
+
             geocodingService.reverseGeocode(new_latitude,new_longitde,(GeocodingResult[] results, GeocoderStatus status) -> {
-                String address = results[0].getFormattedAddress();
-                System.out.println(address);
-                car.setAddress(address);
+                String result  = (results[0].getFormattedAddress());
+                byte[] byteText = result.getBytes(Charset.forName("UTF-8"));
+                String address = null;
+                try {
+                    address = new String(byteText,"UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 carView.setAddress(address);
-            });
+                carView.setBatteryLvlPct(battery);
+                carView.setStatus("AVAILABLE");
+                carTable.refresh();
 
-            Marker marker = findMarkerByName(String.valueOf(car.getId()));
-            if(marker != null){
+
+                car.setAddress(carView.getAddress());
 
 
-                final LatLong lat = new LatLong(new_latitude,new_longitde);
 
-                InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-                infoWindowOptions.content("<h2>Address: "+car.getAddress()+"</h2>"
-                        +"Name: "+car.getName()
-                        +"<br>Battery Lvl: "+car.getBatteryLvlPct()
-                        +"<br>Status: "+car.getStatus());
+                carService.update(car);
+                Marker marker = findMarkerByName(String.valueOf(car.getId()));
+                if(marker != null){
 
-                InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
+                    final LatLong lat = new LatLong(new_latitude,new_longitde);
 
-                ((MyMarker) marker).setLat(lat);
-                ((MyMarker) marker).setInfoWindow(infoWindow);
-                marker.setPosition(lat);
-                ((MyMarker)marker).getInfoWindow().open(map,marker);
 
-        }
+                    InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+                    infoWindowOptions.content(MyMarker.createWindowContent(car));
 
-            carView.setBatteryLvlPct(battery);
-            carView.setStatus("AVAILABLE");
+                    InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
 
-            carTable.refresh();
+                    ((MyMarker) marker).setLat(lat);
+                    ((MyMarker) marker).setInfoWindow(infoWindow);
+                    marker.setPosition(lat);
+                    carMarkersList.forEach(x->((MyMarker)x).getInfoWindow().close());
+                    ((MyMarker)marker).getInfoWindow().open(map,marker);
 
-            carService.update(car);
-
+            }});
 
 
             transactionService.setDao(dao);
@@ -281,6 +279,8 @@ public class DashboardController implements MapComponentInitializedListener {
             DialogUtils.popupWindow("No car is rented",2);
         }
     }
+
+
 
     /**
      * Method that initialize google map view and creates markers that are put on the map.
@@ -326,25 +326,11 @@ public class DashboardController implements MapComponentInitializedListener {
                     .visible(true)
                     .title(String.valueOf(car.getId()));
 
-//            if(car.getStatus().equals("AVAILABLE")){
-//                String image = MarkerImageFactory.createMarkerImage(MainApp.class.getResource(GREEN_MARKER).toExternalForm(),"png");
-//                image.replace("(","");
-//                image.replace(")","");
-//                markerOptions.icon(image);
-//            }
-//            else{
-//                String image = MarkerImageFactory.createMarkerImage(MainApp.class.getResource(GREEN_MARKER).toExternalForm(),"png");
-//                image.replace("(","");
-//                image.replace(")","");
-//                markerOptions.icon(image);
-//            }
+
 
             //Creating info windows that would pop up after car's marker is clicked
             InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-            infoWindowOptions.content("<h2>Address: "+car.getAddress()+"</h2>"
-                    +"Name: "+car.getName()
-                    +"<br>Battery Lvl: "+car.getBatteryLvlPct()
-                    +"<br>Status: "+car.getStatus());
+            infoWindowOptions.content(MyMarker.createWindowContent(car));
 
             InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
 
@@ -354,15 +340,6 @@ public class DashboardController implements MapComponentInitializedListener {
             carMarkersList.add(marker);
             map.addMarker(marker);
 
-//            map.addStateEventHandler(MapStateEventType.center_changed, new StateEventHandler() {
-//                @Override
-//                public void handle() {
-//                    infoWindow.setContent("<h2>Address: "+car.getAddress()+"</h2>"
-//                            +"Name: "+car.getName()
-//                            +"<br>Battery Lvl: "+car.getBatteryLvlPct()
-//                            +"<br>Status: "+car.getStatus());
-//                }
-//            });
 
             //Creating event handler that would fire after the marker is clicked.
             //It focuses table view on row that is associated with selected marker.

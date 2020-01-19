@@ -2,10 +2,12 @@ create database vozilla;
 use vozilla;
 
 
-drop table if exists rented;
-drop table if exists vehicles;
-drop table if exists clients;
 
+drop table if exists charging_cars;
+drop table if exists transactions;
+drop table if exists vehicles;
+drop table if exists profits;
+drop  table if exists  users;
 #--------------------------------TABLES---------------------------------------------------
 
 create table vehicles(
@@ -14,30 +16,13 @@ create table vehicles(
     plates_number varchar(255),
     range_km int,
     battery_lvl_pct int,
-    address varchar(255),
+    address varchar(1000),
     latitude double,
     longitude double,
     status varchar(255),
     insurance_period date,
     battery_distance int,
-    damage_description varchar(500)
-);
-
-
-
-create table clients(
-    id int auto_increment primary key,
-    phone_number varchar(255)
-);
-
-
-create table rented(
-    data date,
-    client_id int,
-    car_id int,
-    completed varchar(255),
-    foreign key(client_id) references clients(id),
-    foreign key(car_id) references vehicles(id)
+    damage_description varchar(1000)
 );
 
 
@@ -50,7 +35,27 @@ create table users(
 );
 
 
+insert into users(
+  login,
+  pswd,
+  role
+)
+values(
+        'admin123',
+        ('admin123'),
+        'ADMIN'
+      );
 
+insert into users(
+  login,
+  pswd,
+  role
+)
+values(
+        'user123',
+        ('user123'),
+        'NORMAL'
+      );
 
 create table transactions(
                              id int auto_increment primary key,
@@ -83,6 +88,12 @@ create table charging_cars(
 
 #--------------------------------TRIGGERS---------------------------------------------------
 
+
+delimiter $$
+drop trigger if exists after_renting_car;
+drop trigger if exists before_user_insert;
+drop trigger if exists before_car_update;
+delimiter ;
 
 delimiter $$
 create trigger after_renting_car

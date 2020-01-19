@@ -32,7 +32,12 @@ dependencies {
 
 javafx {
     version = "13"
+    //
     modules = ['javafx.controls','javafx.fxml','javafx.web','javafx.swing']
 }
 
 mainClassName = "app.MainApp"
+
+
+//For populating database
+//mainClassName = "app.database.mapping.PopulateDatabase"

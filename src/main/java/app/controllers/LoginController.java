@@ -76,7 +76,8 @@ public class LoginController {
 
     @FXML
     void loginProcedure(ActionEvent event) {
-        final UserEntity user = userService.findUser(login.get(), password.get());
+
+        UserEntity user = userService.findUser(login.get(), password.get());
 
         if(user != null){
 
@@ -97,7 +98,6 @@ public class LoginController {
             }
         }
         else{
-
             DialogUtils.popupWindow("Login Unsuccessful",2);
 
         }
