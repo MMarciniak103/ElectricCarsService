@@ -42,7 +42,7 @@ insert into users(
 )
 values(
         'admin123',
-        ('admin123'),
+        SHA1('admin123'),
         'ADMIN'
       );
 
@@ -53,7 +53,7 @@ insert into users(
 )
 values(
         'user123',
-        ('user123'),
+        SHA1('user123'),
         'NORMAL'
       );
 
