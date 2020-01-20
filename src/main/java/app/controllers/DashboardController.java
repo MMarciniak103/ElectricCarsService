@@ -150,6 +150,7 @@ public class DashboardController implements MapComponentInitializedListener {
         mapViewer.setKey(API_KEY);
         mapViewer.addMapInializedListener(this);
 
+//        carTable.setSelectionModel(null);
 
     }
 
@@ -234,7 +235,7 @@ public class DashboardController implements MapComponentInitializedListener {
             car.setLongitude(new_longitde);
             car.setLatitude(new_latitude);
             //Set new battery lvl
-            final int battery =((car.getBatteryLvlPct()-(travelDistance*0.1))>=0)? (int) (car.getBatteryLvlPct()-(travelDistance*0.1)) : 0;
+            final int battery =((car.getBatteryLvlPct()-(travelDistance/car.getBatteryDistance()*100.0))>=0)? (int) (car.getBatteryLvlPct()-(travelDistance/car.getBatteryDistance()*100.0)) : 0;
 
             car.setBatteryLvlPct(battery);
             car.setRangeKM((int) (car.getRangeKM()+travelDistance));

@@ -64,7 +64,7 @@ public class DataMapper {
             tempCar.setLongitude(vehicle.getLocation().getLongitude());
             tempCar.setStatus(vehicle.getStatus());
             tempCar.setInsurancePeriod(LocalDate.now().plusYears(random.nextInt(7)+1));
-            tempCar.setBatteryDistance(random.nextInt(80)+80);
+            tempCar.setBatteryDistance(random.nextInt(20)+80);
             carService.create(tempCar);
         }
     }
