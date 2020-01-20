@@ -10,6 +10,7 @@ import app.service.CarService;
 import app.service.TransactionService;
 import app.util.CloseApplication;
 import app.util.DialogUtils;
+import app.util.HaversineFormula;
 import com.jfoenix.controls.JFXButton;
 
 
@@ -22,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 import com.lynden.gmapsfx.GoogleMapView;
@@ -166,6 +166,10 @@ public class DashboardController implements MapComponentInitializedListener {
         // TODO
     }
 
+    /**
+     * Function that allows user to rent a chosen car. If user has already rented a car,he cannot rent another one.
+     * In the process the chosen car is being check if it is ready to be rented and used.
+     */
     @FXML
     void rentCar(ActionEvent event) {
         //Check if logged user currently rented a car.
@@ -204,6 +208,11 @@ public class DashboardController implements MapComponentInitializedListener {
         }
     }
 
+    /**
+     * Function that allows user to return rented car. It calculates some necessary variables, like
+     * for example traveled distance and profit for renting company. After calculations
+     * car object and the marker associated with this car are being updated.
+     */
     @FXML
     void returnCar(ActionEvent event) {
         transactionService.setDao(dao);
@@ -215,18 +224,17 @@ public class DashboardController implements MapComponentInitializedListener {
 
             Random random = new Random();
 
+            //Generate random latitude and longitude from a given range. It simulates real behavior of this system.
             double new_latitude = random.nextDouble()* (51.200568-51.050568)+51.050568;
             double new_longitde= random.nextDouble()* (17.155038-16.955038)+16.955038;
-            double travelDistance = 2.*6371*Math.asin(
-                    Math.sqrt(
-                          Math.pow(Math.sin((new_latitude-car.getLatitude())/2),2)
-                          +Math.cos(car.getLatitude())*Math.cos(new_latitude)
-                          +Math.pow(Math.sin((new_longitde-car.getLongitude())/2),2))
-                    );
+
+            //Calculate traveled distance with Haversine formula
+            double travelDistance = HaversineFormula.haversin_distance(car.getLatitude(),car.getLongitude(),new_latitude,new_longitde);
 
             car.setLongitude(new_longitde);
             car.setLatitude(new_latitude);
-            final int battery =((car.getBatteryLvlPct()-(travelDistance*0.01))>=0)? (int) (car.getBatteryLvlPct()-(travelDistance*0.01)) : 0;
+            //Set new battery lvl
+            final int battery =((car.getBatteryLvlPct()-(travelDistance*0.1))>=0)? (int) (car.getBatteryLvlPct()-(travelDistance*0.1)) : 0;
 
             car.setBatteryLvlPct(battery);
             car.setRangeKM((int) (car.getRangeKM()+travelDistance));
@@ -237,10 +245,10 @@ public class DashboardController implements MapComponentInitializedListener {
             CarView carView = carTable.getItems().get((int) car.getId()-1);
 
 
-
-
+            //Find new address value for a given latitude-longitude coordinates. It uses Google Maps Api Geocoding Service.
             geocodingService.reverseGeocode(new_latitude,new_longitde,(GeocodingResult[] results, GeocoderStatus status) -> {
                 String result  = (results[0].getFormattedAddress());
+                //Convert result address into utf-8 format.
                 byte[] byteText = result.getBytes(Charset.forName("UTF-8"));
                 String address = null;
                 try {
@@ -253,12 +261,13 @@ public class DashboardController implements MapComponentInitializedListener {
                 carView.setStatus("AVAILABLE");
                 carTable.refresh();
 
-
                 car.setAddress(carView.getAddress());
 
 
-
+                //Update car entity
                 carService.update(car);
+
+                //Update marker associated with returned car and its parameters
                 Marker marker = findMarkerByName(String.valueOf(car.getId()));
                 if(marker != null){
 

@@ -19,23 +19,6 @@ public final class  DialogUtils {
 
     private static final String DIALOG_PANE_CSS = "/css/dialogPane.css";
 
-    public static void invalidUsernameDialog(){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(MainApp.class.getResource(DIALOG_PANE_CSS).toExternalForm());
-        alert.setHeaderText("Invalid Username");
-        alert.setContentText("This username is already taken, please choose different one");
-        alert.showAndWait();
-    }
-
-    public static void differentPasswordsDialog(){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(MainApp.class.getResource(DIALOG_PANE_CSS).toExternalForm());
-        alert.setHeaderText("Uncorrect password");
-        alert.setContentText("Passwords values are different. Please oonfirm your password!");
-        alert.showAndWait();
-    }
 
     public static Optional<ButtonType> confirmationDialog(){
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
@@ -47,6 +30,11 @@ public final class  DialogUtils {
         return  result;
     }
 
+    /**
+     * Creates popup window with custom message. It is visible for a given time interval.
+     * @param message Message that you want to show
+     * @param duration lifetime of window (in seconds)
+     */
     public static void popupWindow(String message,int duration){
 
         try{

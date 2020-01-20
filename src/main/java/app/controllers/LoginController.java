@@ -4,12 +4,14 @@ import app.dao.GenericHibernateDao;
 import app.entity.UserEntity;
 import app.service.UserService;
 import app.util.DialogUtils;
+import app.util.HaversineFormula;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -20,7 +22,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class LoginController {
@@ -74,13 +75,16 @@ public class LoginController {
 
     }
 
+
     @FXML
     void loginProcedure(ActionEvent event) {
 
+        //Check if in db exists user with given login and password
         UserEntity user = userService.findUser(login.get(), password.get());
 
         if(user != null){
 
+            //If he exists, load dashboard window
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
                 Parent root = loader.load();
