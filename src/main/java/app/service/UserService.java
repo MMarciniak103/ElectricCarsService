@@ -2,7 +2,6 @@ package app.service;
 
 import app.dao.GenericHibernateDao;
 import app.entity.UserEntity;
-import app.util.DialogUtils;
 
 import javax.persistence.NoResultException;
 import java.util.List;

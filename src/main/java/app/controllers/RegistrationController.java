@@ -14,10 +14,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 public class RegistrationController {
 
@@ -87,7 +85,6 @@ public class RegistrationController {
         pswdConfirmation.bind(pswdConfirmTxt.textProperty());
 
         dao = new GenericHibernateDao();
-        dao.setClazz(UserEntity.class);
 
         userService = new UserService();
         userService.setDao(dao);
@@ -114,9 +111,13 @@ public class RegistrationController {
         stage.close();
     }
 
+    /**
+     * Allows user to create new account that is being saved in database.
+     */
     @FXML
     void register(ActionEvent event) {
 
+        //First check if input username is not already taken.
         UserEntity user = userService.findByName(username.get());
         if(user != null){
             usernameIcon.setVisible(false);
@@ -124,6 +125,7 @@ public class RegistrationController {
         }
         else{
             usernameIcon.setVisible(true);
+            //If password and its confirmation are equal, new account is being registered
             if(pswd.get().equals(pswdConfirmation.get())) {
 
                 UserEntity tempUser = new UserEntity();
@@ -141,7 +143,7 @@ public class RegistrationController {
 
             }
             else{
-//                DialogUtils.differentPasswordsDialog();
+
                 DialogUtils.popupWindow("Incorrect Password",2);
             }
 
