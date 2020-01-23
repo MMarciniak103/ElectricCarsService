@@ -116,6 +116,14 @@ public  class GenericHibernateDao<T extends Serializable> implements IGenericDao
     }
 
 
+    public Long queryForCount(String query){
+        Long result = Long.valueOf(0);
+        try(Session session = HibernateConfig.getSessionFactory().openSession()){
+            result = (Long) session.createQuery(query).getSingleResult();
+        }
+        return result;
+    }
+
     protected Session getCurrentSession(){
         return  HibernateConfig.getSessionFactory().getCurrentSession();
     }
