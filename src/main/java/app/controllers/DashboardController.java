@@ -120,6 +120,8 @@ public class DashboardController implements MapComponentInitializedListener {
 
     private GeocodingService geocodingService;
 
+    private String damageDescription;
+
     @FXML
     void initialize() {
         assert dashboardPane != null : "fx:id=\"dashboardPane\" was not injected: check your FXML file 'dashboard.fxml'.";
@@ -175,11 +177,12 @@ public class DashboardController implements MapComponentInitializedListener {
     void rentCar(ActionEvent event) {
         //Check if logged user currently rented a car.
         transactionService.setDao(dao);
-        TransactionEntity transaction = transactionService.findByUser(loggedUser.getId());
-        if(transaction == null) {
+        Long userCount = transactionService.countByUserRented(loggedUser.getId());
+        long carID = carTable.getSelectionModel().selectedItemProperty().get().getId();
+        if(userCount == 0) {
             //Check if car is available
             carService.setDao(dao);
-            CarEntity chosenCar = carService.findOne(carTable.getSelectionModel().selectedItemProperty().get().getId());
+            CarEntity chosenCar = carService.findOne(carID);
             if (chosenCar.getStatus().equals("AVAILABLE") && chosenCar.getBatteryLvlPct() != 0 && !chosenCar.getStatus().equals("IS BEING CHARGED")) {
                 transactionService.setDao(dao);
                 TransactionEntity transactionEntity = new TransactionEntity();
@@ -217,8 +220,8 @@ public class DashboardController implements MapComponentInitializedListener {
     @FXML
     void returnCar(ActionEvent event) {
         transactionService.setDao(dao);
-        TransactionEntity transaction = transactionService.findByUser(loggedUser.getId());
-        if(transaction != null && !transaction.getCompleted().equals("COMPLETED")) {
+        TransactionEntity transaction = transactionService.findByUserIncompleted(loggedUser.getId());
+        if(transaction != null) {
             //It fires triggers that are implemented in mysql db schema
             carService.setDao(dao);
             CarEntity car = carService.findOne(transaction.getCarId());
@@ -246,6 +249,7 @@ public class DashboardController implements MapComponentInitializedListener {
             CarView carView = carTable.getItems().get((int) car.getId()-1);
 
 
+
             //Find new address value for a given latitude-longitude coordinates. It uses Google Maps Api Geocoding Service.
             geocodingService.reverseGeocode(new_latitude,new_longitde,(GeocodingResult[] results, GeocoderStatus status) -> {
                 String result  = (results[0].getFormattedAddress());
@@ -264,6 +268,23 @@ public class DashboardController implements MapComponentInitializedListener {
 
                 car.setAddress(carView.getAddress());
 
+
+
+                try{
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/damageDescriptionPane.fxml"));
+                    Parent root = loader.load();
+
+                    DamageDescriptionController damageDescriptionController = loader.getController();
+                    damageDescriptionController.setController(this);
+
+                    setNewStage(root);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                car.setDamageDescription(damageDescription);
 
                 //Update car entity
                 carService.update(car);
@@ -290,8 +311,8 @@ public class DashboardController implements MapComponentInitializedListener {
 
 
             transactionService.setDao(dao);
-
-            transactionService.delete(transaction);
+            transaction.setCompleted("COMPLETED");
+            transactionService.update(transaction);
         }
         else{
             DialogUtils.popupWindow("No car is rented",2);
@@ -413,7 +434,7 @@ public class DashboardController implements MapComponentInitializedListener {
     @FXML
     public void showRentalStatus(ActionEvent actionEvent) {
         transactionService.setDao(dao);
-        TransactionEntity transaction = transactionService.findByUser(loggedUser.getId());
+        TransactionEntity transaction = transactionService.findByUserIncompleted(loggedUser.getId());
 
         if(transaction !=null){
 
@@ -443,5 +464,9 @@ public class DashboardController implements MapComponentInitializedListener {
         stage.setResizable(false);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
+    }
+
+    public void passDescription(String description){
+        this.damageDescription = description;
     }
 }

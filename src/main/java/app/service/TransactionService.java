@@ -44,6 +44,14 @@ public class TransactionService implements ServiceInterface<TransactionEntity> {
         dao.delete(entity);
     }
 
+    public TransactionEntity findSpecificTransaction(long carId,long userId){
+        TransactionEntity transactionEntity = null;
+        try{
+            transactionEntity = dao.queryForOne("from TransactionEntity where carId = "+carId+" and clientId = "+userId);
+
+        }catch (NoResultException ex){}
+        return transactionEntity;
+    }
 
     @Override
     public void deleteById(long entityId) {
@@ -58,4 +66,23 @@ public class TransactionService implements ServiceInterface<TransactionEntity> {
         }
         return transactionEntity;
     }
+
+
+    public Long countByUserRented(long userId){
+            Long result = dao.queryForCount("select count(clientId) from TransactionEntity where clientId = " + userId + " and completed = 'RENTED'");
+            return result;
+    }
+
+
+
+    public TransactionEntity findByUserIncompleted(long userId){
+        TransactionEntity transactionEntity = null;
+        try{
+            transactionEntity = dao.queryForOne("from TransactionEntity where clientId = "+userId+" and completed = 'RENTED' ");
+        }catch (NoResultException ex){
+        }
+        return transactionEntity;
+    }
+
+
 }

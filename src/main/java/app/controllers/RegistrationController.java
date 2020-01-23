@@ -154,4 +154,5 @@ public class RegistrationController {
     public boolean registrationStatus() {
         return registrationStatus;
     }
+
 }
