@@ -15,5 +15,6 @@
         <mapping class="app.entity.UserEntity"/>
         <mapping class="app.entity.CarEntity"/>
         <mapping class="app.entity.TransactionEntity"/>
+        <mapping class="app.entity.ProfitEntity"/>
     </session-factory>
 </hibernate-configuration>

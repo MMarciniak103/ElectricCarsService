@@ -107,6 +107,11 @@ public  class GenericHibernateDao<T extends Serializable> implements IGenericDao
         return result;
     }
 
+    /**
+     * It creates connection with database and creates query that returns entity's id
+     * @param query Query that we want to run
+     * @return id (long) that is associated with T entity (where T is generic type).
+     */
     public Long queryForID(String query){
         Long result;
         try(Session session = HibernateConfig.getSessionFactory().openSession()){
@@ -115,13 +120,38 @@ public  class GenericHibernateDao<T extends Serializable> implements IGenericDao
         return result;
     }
 
-
+    /**
+     * It creates connection with database and creates query that returns count of returned rows
+     * @param query Query that we want to run
+     * @return count of returned rows.
+     */
     public Long queryForCount(String query){
         Long result = Long.valueOf(0);
         try(Session session = HibernateConfig.getSessionFactory().openSession()){
             result = (Long) session.createQuery(query).getSingleResult();
         }
         return result;
+    }
+
+    /**
+     * It creates connection with database and creates query that returns list of entities
+     * @param query Query that we want to run
+     * @return List of entities .
+     */
+    public List queryForList(String query){
+        List result = null;
+        try(Session session = HibernateConfig.getSessionFactory().openSession()){
+            result = session.createQuery(query).getResultList();
+        }
+        return result;
+    }
+
+    public List nativeQuery(String query,Class<T> clazz){
+        List result = null;
+        try(Session session = HibernateConfig.getSessionFactory().openSession()){
+            result = session.createNativeQuery(query,clazz).list();
+        }
+        return  result;
     }
 
     protected Session getCurrentSession(){

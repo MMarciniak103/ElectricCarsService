@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="adminPane" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.AdminController">
+   <children>
+      <TableView fx:id="garageTable" layoutX="21.0" layoutY="160.0" prefHeight="469.0" prefWidth="523.0" stylesheets="@../css/tableView.css">
+        <columns>
+            <TableColumn fx:id="nameColumn" minWidth="0.0" prefWidth="0.0" text="Name" />
+            <TableColumn fx:id="batteryLvlColumn" prefWidth="95.0" text="Battery Lvl Pct" />
+            <TableColumn fx:id="addressColumn" prefWidth="130.0" text="Address" />
+            <TableColumn fx:id="statusColumn" prefWidth="108.0" text="Status" />
+            <TableColumn fx:id="batteryDistColumn" prefWidth="101.0" text="Battery Distance" />
+            <TableColumn fx:id="rechargeColumn" prefWidth="88.0" text="Recharge" />
+        </columns>
+      </TableView>
+      <Label alignment="CENTER" layoutX="102.0" layoutY="99.0" prefHeight="47.0" prefWidth="361.0" text="Garage Panel" textFill="WHITE">
+         <font>
+            <Font name="Tahoma Bold" size="31.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="102.0" layoutY="143.0" prefHeight="7.0" prefWidth="361.0" style="-fx-background-color: #76FF03; -fx-background-radius: 90;" />
+      <JFXButton fx:id="backBtn" layoutX="21.0" layoutY="14.0" onAction="#goBack" prefHeight="34.0" prefWidth="90.0" text="Back" textFill="#7d7d7d">
+         <font>
+            <Font name="Tahoma Bold" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="22.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/left-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <LineChart fx:id="lineChart" layoutX="530.0" layoutY="115.0" prefHeight="265.0" prefWidth="554.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" fx:id="xAxisLC" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxisLC" side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <Label alignment="CENTER" layoutX="603.0" layoutY="83.0" prefHeight="7.0" prefWidth="361.0" text="Profit" textFill="WHITE">
+         <font>
+            <Font name="Tahoma Bold" size="25.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutY="62.0" prefHeight="7.0" prefWidth="1102.0" style="-fx-background-color: #76FF03;" />
+      <BarChart fx:id="barChart" layoutX="530.0" layoutY="375.0" prefHeight="310.0" prefWidth="554.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" fx:id="xAxisBC" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxisBC" side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <JFXButton fx:id="logoutBtn" layoutX="980.0" layoutY="16.0" onAction="#Logout" prefHeight="32.0" prefWidth="104.0" text="Logout" textFill="#7d7d7d">
+         <font>
+            <Font name="Tahoma Bold" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="22.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/logout.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>
