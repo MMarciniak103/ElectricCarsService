@@ -139,6 +139,7 @@ public class DashboardController implements MapComponentInitializedListener {
 
         carMarkersList = new ArrayList<>();
 
+
         dao = new GenericHibernateDao();
 
         carService = new CarService();
@@ -152,7 +153,6 @@ public class DashboardController implements MapComponentInitializedListener {
         mapViewer.setKey(API_KEY);
         mapViewer.addMapInializedListener(this);
 
-//        carTable.setSelectionModel(null);
 
     }
 
@@ -166,7 +166,24 @@ public class DashboardController implements MapComponentInitializedListener {
 
     @FXML
     void openAdminPanel(ActionEvent event) {
-        // TODO
+        if(loggedUser.getRole() == UserEntity.Role.ADMIN) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/adminPanel.fxml"));
+            try {
+                Parent root = loader.load();
+
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) adminBtn.getScene().getWindow();
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            DialogUtils.popupWindow("You are not admin!",2);
+        }
     }
 
     /**

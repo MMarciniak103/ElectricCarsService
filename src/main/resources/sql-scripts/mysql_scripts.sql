@@ -132,5 +132,9 @@ begin
   if traveled_dist > 0 then
     insert into profits (data,profit) values(CURDATE(),traveled_dist*2.50);
   end if;
+  if new.battery_lvl_pct = 100 then
+    delete from charging_cars where car_id = old.id;
+    set new.status = 'AVAILABLE';
+  end if;
 end $$
 delimiter ;
