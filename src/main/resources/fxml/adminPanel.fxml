@@ -43,7 +43,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <LineChart fx:id="lineChart" layoutX="530.0" layoutY="115.0" prefHeight="265.0" prefWidth="554.0">
+      <LineChart fx:id="lineChart" layoutX="530.0" layoutY="115.0" prefHeight="265.0" prefWidth="554.0" stylesheets="@../css/chart.css">
         <xAxis>
           <CategoryAxis side="BOTTOM" fx:id="xAxisLC" />
         </xAxis>
@@ -55,9 +55,15 @@
          <font>
             <Font name="Tahoma Bold" size="25.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/dollar.png" />
+               </image></ImageView>
+         </graphic>
       </Label>
       <AnchorPane layoutY="62.0" prefHeight="7.0" prefWidth="1102.0" style="-fx-background-color: #76FF03;" />
-      <BarChart fx:id="barChart" layoutX="530.0" layoutY="375.0" prefHeight="310.0" prefWidth="554.0">
+      <BarChart fx:id="barChart" layoutX="530.0" layoutY="375.0" prefHeight="310.0" prefWidth="554.0" stylesheets="@../css/chart.css">
         <xAxis>
           <CategoryAxis side="BOTTOM" fx:id="xAxisBC" />
         </xAxis>
