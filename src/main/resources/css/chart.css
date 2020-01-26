@@ -1,0 +1,18 @@
+.chart{
+    -fx-background-color: #212121;
+}
+
+.chart .axis{
+    -fx-tick-label-fill: #76FF03;
+}
+
+.chart-plot-background{
+    -fx-background-color: #7d7d7d7d;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #75757575;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #75757575;
+}
