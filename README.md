@@ -14,7 +14,10 @@ Project is created with:
 * JFoenix version 9.0.9
 >
 ![DB DOCS - TO DOWNLOAD](./bddocs/docs.html)
-
+>
+Db EER schema:
+>
+![EER schema](./bddocs/EER.png)
 
 **Login panel - users are saved in database**
 >
