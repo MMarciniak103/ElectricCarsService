@@ -2,7 +2,6 @@ package app.service;
 
 import app.dao.GenericHibernateDao;
 import app.entity.CarEntity;
-import org.hibernate.SQLQuery;
 
 import javax.persistence.NoResultException;
 import java.util.List;
@@ -29,6 +28,10 @@ public class CarService implements ServiceInterface<CarEntity> {
         return carEntity;
     }
 
+    /**
+     * Looks for all cars that are being charged in garage at this moment.
+     * @return List of returned cars.
+     */
     public List<CarEntity> findInGarage(){
         List<CarEntity >cars = null;
         cars = dao.nativeQuery("select * from vehicles where id in (select car_id from charging_cars);",CarEntity.class);

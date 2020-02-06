@@ -30,6 +30,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Controller for Admin Panel View
+ */
 public class AdminController {
 
     @FXML

@@ -146,6 +146,12 @@ public  class GenericHibernateDao<T extends Serializable> implements IGenericDao
         return result;
     }
 
+    /**
+     * Method that is used to make native sql query.
+     * @param query query in SQL syntax
+     * @param clazz class of entity associated with given query.
+     * @return List of results.
+     */
     public List nativeQuery(String query,Class<T> clazz){
         List result = null;
         try(Session session = HibernateConfig.getSessionFactory().openSession()){

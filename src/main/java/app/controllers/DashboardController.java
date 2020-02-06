@@ -56,10 +56,6 @@ public class DashboardController implements MapComponentInitializedListener {
     //Key for Google Maps Api is saved as an environment variable
     private String API_KEY = System.getenv("GOOGLE_API");
 
-    final String GREEN_MARKER = "/icons/green_marker.png";
-    final String RED_MARKER = "/icons/red_marker.png";
-
-
     @FXML
     private ResourceBundle resources;
 
@@ -164,6 +160,9 @@ public class DashboardController implements MapComponentInitializedListener {
         CloseApplication.cloeApplication();
     }
 
+    /**
+     * Method that checks if logged user is and Admin and if he is, then it opens admin panel view and allows him to interact with it.
+     */
     @FXML
     void openAdminPanel(ActionEvent event) {
         if(loggedUser.getRole() == UserEntity.Role.ADMIN) {

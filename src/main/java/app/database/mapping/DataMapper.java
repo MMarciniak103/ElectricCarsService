@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class that provides functionality to parse json objects into POJO and populate given database with them.
+ */
 public class DataMapper {
 
     private GenericHibernateDao dao;
@@ -24,7 +27,12 @@ public class DataMapper {
         carService.setDao(this.dao);
     }
 
-    public VehicleBase getVehiclesList(String path){
+    /**
+     * Method accepts path to json file and then converts its elements into VehicleBase Object.
+     * @param path path to json file.
+     * @return List of vehicles entities.
+     */
+    private VehicleBase getVehiclesList(String path){
         Gson gson = new Gson();
         StringBuffer response = new StringBuffer();
         VehicleBase vehicleBase = new VehicleBase();
@@ -47,6 +55,10 @@ public class DataMapper {
     }
 
 
+    /**
+     * Methods that would be called if we want to populate out database with parsed objects (vehicles)
+     * @param path path to json file.
+     */
     public void populateDatabase(String path){
         VehicleBase vehicleBase = getVehiclesList(path);
         Vehicle[] vehicles = vehicleBase.getVehicles();

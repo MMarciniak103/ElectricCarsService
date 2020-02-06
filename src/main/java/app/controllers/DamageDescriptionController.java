@@ -13,6 +13,9 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Controller for Damage Description Panel View
+ */
 public class DamageDescriptionController {
 
     @FXML
@@ -46,6 +49,9 @@ public class DamageDescriptionController {
     }
 
 
+    /**
+     * Method that takes user's input and sends it back to main controller
+     */
     @FXML
     void sendInfo(ActionEvent event) {
 

@@ -24,6 +24,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Controller for Login Panel View
+ */
 public class LoginController {
 
     @FXML
@@ -76,6 +79,10 @@ public class LoginController {
     }
 
 
+    /**
+     * Methods checks if there is any user in db that has given login and password, and if given
+     * parameters pass the authorization, the main panel view is opened
+     */
     @FXML
     void loginProcedure(ActionEvent event) {
 
@@ -107,6 +114,9 @@ public class LoginController {
         }
     }
 
+    /**
+     * Opens registration form.
+     */
     @FXML
     void registerForm(ActionEvent event) {
 

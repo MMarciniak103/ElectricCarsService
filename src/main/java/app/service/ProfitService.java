@@ -3,7 +3,6 @@ package app.service;
 import app.dao.GenericHibernateDao;
 import app.entity.ProfitEntity;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class ProfitService implements ServiceInterface<ProfitEntity> {

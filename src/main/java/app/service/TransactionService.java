@@ -7,6 +7,7 @@ import app.entity.TransactionEntity;
 import javax.persistence.NoResultException;
 import java.util.List;
 
+
 public class TransactionService implements ServiceInterface<TransactionEntity> {
 
     private GenericHibernateDao<TransactionEntity> dao;
@@ -44,6 +45,13 @@ public class TransactionService implements ServiceInterface<TransactionEntity> {
         dao.delete(entity);
     }
 
+
+    /**
+     * Looks for a specific transaction by given carID and userID
+     * @param carId id of car
+     * @param userId id of customer
+     * @return Transaction entity
+     */
     public TransactionEntity findSpecificTransaction(long carId,long userId){
         TransactionEntity transactionEntity = null;
         try{
@@ -58,6 +66,11 @@ public class TransactionService implements ServiceInterface<TransactionEntity> {
         dao.deleteById(entityId);
     }
 
+    /**
+     * Looks for a transaction associated with a given user.
+     * @param userId id of customer
+     * @return Transaction entity
+     */
     public TransactionEntity findByUser(long userId){
         TransactionEntity transactionEntity = null;
         try{
@@ -68,13 +81,22 @@ public class TransactionService implements ServiceInterface<TransactionEntity> {
     }
 
 
+    /**
+     * Looks for count of transaction associated with given client. Transactions that are being searched need to have RENTED status.
+     * @param userId id of client.
+     * @return Number of found transactions
+     */
     public Long countByUserRented(long userId){
             Long result = dao.queryForCount("select count(clientId) from TransactionEntity where clientId = " + userId + " and completed = 'RENTED'");
             return result;
     }
 
 
-
+    /**
+     * Looks for a transaction associated with given user. Transaction needs to have RENTED status.
+     * @param userId id of client
+     * @return Transaction Entity.
+     */
     public TransactionEntity findByUserIncompleted(long userId){
         TransactionEntity transactionEntity = null;
         try{

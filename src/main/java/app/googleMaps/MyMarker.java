@@ -6,6 +6,9 @@ import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 
+/**
+ * Custom implementation of Google Maps Api Marker.
+ */
 public class MyMarker extends Marker {
 
     private LatLong lat;
