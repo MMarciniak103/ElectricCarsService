@@ -209,6 +209,11 @@ public class DashboardController implements MapComponentInitializedListener {
 
                 transactionService.create(transactionEntity);
 
+                CarView carView = carTable.getItems().get((int) chosenCar.getId()-1);
+
+                carView.setStatus("RESERVED");
+
+                carTable.refresh();
 
                 DialogUtils.popupWindow("Car Rented Successfully", 2);
 
@@ -259,7 +264,10 @@ public class DashboardController implements MapComponentInitializedListener {
             car.setBatteryLvlPct(battery);
             car.setRangeKM((int) (car.getRangeKM()+travelDistance));
 
-            car.setStatus("AVAILABLE");
+            if(battery <= 10.0)
+                car.setStatus("IS BEING CHARGED");
+            else
+                car.setStatus("AVAILABLE");
 
 
             CarView carView = carTable.getItems().get((int) car.getId()-1);
@@ -279,7 +287,10 @@ public class DashboardController implements MapComponentInitializedListener {
                 }
                 carView.setAddress(address);
                 carView.setBatteryLvlPct(battery);
-                carView.setStatus("AVAILABLE");
+                if(battery<=10.0)
+                    carView.setStatus("IS BEING CHARGED");
+                else
+                    carView.setStatus("AVAILABLE");
                 carTable.refresh();
 
                 car.setAddress(carView.getAddress());

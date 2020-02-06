@@ -9,6 +9,7 @@ import app.service.ProfitService;
 import app.util.CloseApplication;
 import com.jfoenix.controls.JFXButton;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -23,12 +24,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * Controller for Admin Panel View
@@ -238,7 +243,19 @@ public class AdminController {
 
     @FXML
     void goBack(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+        try {
+            Parent root = loader.load();
 
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) logoutBtn.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

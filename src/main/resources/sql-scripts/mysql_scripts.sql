@@ -125,7 +125,7 @@ create trigger before_car_update
 begin
   declare traveled_dist int;
   set traveled_dist = new.range_km - old.range_km;
-  if traveled_dist > 0.9 * old.battery_distance then
+  if traveled_dist > 0.9 * old.battery_distance or new.battery_lvl_pct <= 10.0  then
     insert into charging_cars (car_id) values(old.id);
     set new.status = "IS BEING CHARGED";
   end if;
