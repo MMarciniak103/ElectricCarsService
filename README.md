@@ -13,6 +13,8 @@ Project is created with:
 * GMapsFX version 2.12.0
 * JFoenix version 9.0.9
 >
+Documentation: [JavaDoc](https://mmarciniak103.github.io/ElectricCarsService/)
+>
 ![DB DOCS - TO DOWNLOAD](./bddocs/docs.html)
 >
 Db EER schema:
