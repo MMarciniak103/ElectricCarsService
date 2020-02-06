@@ -12,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Controller for rental status info view
+ */
 public class RentalStatusController {
 
     @FXML
@@ -59,6 +62,10 @@ public class RentalStatusController {
 
     }
 
+    /**
+     * Method that is used to pass information about rented car from parent's view controller to this one.
+     * @param carEntity car entity representing rented car.
+     */
     public void passCar(CarEntity carEntity){
         this.car = carEntity;
 

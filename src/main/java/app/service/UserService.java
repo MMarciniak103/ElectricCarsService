@@ -28,6 +28,11 @@ public class UserService implements ServiceInterface<UserEntity>{
         return user;
     }
 
+    /**
+     * Looks for an user with a given name.
+     * @param name Name of user
+     * @return User Entity
+     */
     public UserEntity findByName(String name){
         UserEntity user = null;
         try{
@@ -39,7 +44,13 @@ public class UserService implements ServiceInterface<UserEntity>{
     }
 
 
-
+    /**
+     * Methods that is used to authorize user. It looks in db for an user with given login and password.
+     * The password is encrypted with SHA1.
+     * @param login Login of user
+     * @param psw Password of user.
+     * @return User entity
+     */
     public UserEntity findUser(String login,String psw){
 
         UserEntity user = null;

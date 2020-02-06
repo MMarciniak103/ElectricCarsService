@@ -1,5 +1,8 @@
 package app.util;
 
+/**
+ * Provides implementation of Haversine Formula logic. It is used to calculate traveled distance by car with given pairs of coordinates.
+ */
 public class HaversineFormula {
 
     private static final int EARTH_RADIUS = 6371; // Approx Earth radius in KM

@@ -17,6 +17,9 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+/**
+ * Controller for registration form view
+ */
 public class RegistrationController {
 
     @FXML

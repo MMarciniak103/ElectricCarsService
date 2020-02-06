@@ -2,6 +2,9 @@ package app.database.mapping;
 
 import java.util.Arrays;
 
+/**
+ * Implementation of list of vehicles.
+ */
 public class VehicleBase {
     private Vehicle[] vehicles;
 

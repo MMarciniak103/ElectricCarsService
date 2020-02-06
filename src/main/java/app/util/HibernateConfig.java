@@ -1,15 +1,16 @@
 package app.util;
 
-import app.entity.CarEntity;
-import app.entity.TransactionEntity;
-import app.entity.UserEntity;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 
+/**
+ * Class that provides configuration of Hibernate library for this project.
+ * It creates session factory and implements method that allows to use it in other parts of application.
+ */
 public class HibernateConfig {
 
     private static StandardServiceRegistry registry;

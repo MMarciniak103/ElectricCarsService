@@ -4,6 +4,9 @@ import app.database.mapping.vehicleComponents.Location;
 import app.database.mapping.vehicleComponents.MapColor;
 import app.database.mapping.vehicleComponents.Picture;
 
+/**
+ * Model of vehicle object. Used to map json objects into POJO.
+ */
 public class Vehicle {
     private String discriminator;
     private String platesNumber;

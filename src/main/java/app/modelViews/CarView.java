@@ -3,6 +3,9 @@ package app.modelViews;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Model of CarView that is used to represent car entity as an JavaFx Object.
+ */
 public class CarView {
 
     private SimpleIntegerProperty id;
