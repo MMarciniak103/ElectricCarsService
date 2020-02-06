@@ -12,6 +12,9 @@ Project is created with:
 * Hibernate 5
 * GMapsFX version 2.12.0
 * JFoenix version 9.0.9
+>
+![DB DOCS - TO DOWNLOAD](./bddocs/docs.html)
+
 
 **Login panel - users are saved in database**
 >
